@@ -35,16 +35,17 @@ const registerUser = asyncHandler(async (req, res) => {
     );
   }
 
-  //? validation if user has uploaded the cover image in the first place
-
-  if (!Object.entries(req.files).length) {
-    throw new ApiError(400, "Cover image is required!");
-  }
-
   // ? 4 check for images, check for avatar
-
   const avatarLocalPath = req.files?.avatar[0]?.path;
-  const coverLocalPath = req.files?.cover[0]?.path;
+
+  let coverLocalPath = "";
+  if (
+    req.files &&
+    Array.isArray(req.files.cover) &&
+    req.files.cover.length > 0
+  ) {
+    coverLocalPath = req.files.cover[0].path;
+  }
 
   if (!avatarLocalPath) {
     throw new ApiError(400, "User avatar required!");

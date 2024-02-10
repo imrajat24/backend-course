@@ -34,14 +34,16 @@ const userSchema = new Schema(
       required: true,
     },
 
-    coverImage: {
+    cover: {
       type: String,
     },
 
-    watchHistory: {
-      type: Schema.Types.ObjectId,
-      ref: "Video",
-    },
+    watchHistory: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Video",
+      },
+    ],
 
     password: {
       type: String,
